@@ -3,10 +3,10 @@
   "displayName": "JSX TODO Comments",
   "description": "Highlights TODO-like comments inside JSX blocks such as {/* TODO: ... */}",
   "version": "0.0.1",
-  "publisher": "escobarmatj",
+  "publisher": "MatiasAlejandroEscobar",
   "repository": {
     "type": "git",
-    "url": "https://github.com/escobarmatj/jsx-todo-comments"
+    "url": "https://github.com/escobarmat/jsx-coments-todo"
   },
   "license": "MIT",
   "engines": {

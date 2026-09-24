@@ -42,34 +42,52 @@ const SUPPORTED_LANGUAGES = new Set([
     'typescript',
     'typescriptreact',
 ]);
-function getPattern() {
+const DEFAULT_RULES = [
+    { tag: 'TODO', color: '#FFB000', fontWeight: 'bold' },
+    { tag: 'FIXME', color: '#FF4D4F', fontWeight: 'bold' },
+    { tag: 'BUG', color: '#FF2D2D', fontWeight: 'bold' },
+    { tag: 'HACK', color: '#FFD93D', fontWeight: 'bold' },
+    { tag: 'NOTE', color: '#4DA3FF', fontWeight: 'normal' },
+];
+function getRules() {
     const config = vscode.workspace.getConfiguration('jsxTodoComments');
-    const pattern = config.get('pattern', 'TODO|FIXME|BUG|HACK');
-    return new RegExp(`\\{\\s*\\/\\*\\s*((?:${pattern})\\b[^*]*)\\*\\/\\s*\\}`, 'gi');
+    const custom = config.get('colors', {});
+    return DEFAULT_RULES.map((rule) => ({
+        ...rule,
+        color: custom[rule.tag] ?? rule.color,
+    }));
+}
+function getPattern() {
+    const rules = getRules();
+    const tags = rules.map((rule) => rule.tag).join('|');
+    return new RegExp(`\\{\\s*\\/\\*\\s*((?:${tags})\\b[^*]*)\\*\\/\\s*\\}`, 'gi');
 }
 function activate(context) {
-    const decoration = vscode.window.createTextEditorDecorationType({
-        color: vscode.workspace.getConfiguration('jsxTodoComments').get('color', '#FF8C00'),
-        fontWeight: 'bold',
-    });
     const updateDecorations = (editor) => {
         if (!editor) {
             return;
         }
         if (!SUPPORTED_LANGUAGES.has(editor.document.languageId)) {
-            editor.setDecorations(decoration, []);
             return;
         }
         const text = editor.document.getText();
-        const ranges = [];
-        const regex = getPattern();
-        for (const match of text.matchAll(regex)) {
-            const matchStart = match.index ?? 0;
-            const commentStart = matchStart + match[0].indexOf('/*');
-            const commentEnd = matchStart + match[0].indexOf('*/') + 2;
-            ranges.push(new vscode.Range(editor.document.positionAt(commentStart), editor.document.positionAt(commentEnd)));
+        const rules = getRules();
+        for (const rule of rules) {
+            const decoration = vscode.window.createTextEditorDecorationType({
+                color: rule.color,
+                fontWeight: rule.fontWeight,
+            });
+            const ranges = [];
+            const regex = new RegExp(`\\{\\s*\\/\\*\\s*(${rule.tag})\\b[^*]*\\*\\/\\s*\\}`, 'gi');
+            for (const match of text.matchAll(regex)) {
+                const matchStart = match.index ?? 0;
+                const commentStart = matchStart + match[0].indexOf('/*');
+                const commentEnd = matchStart + match[0].indexOf('*/') + 2;
+                ranges.push(new vscode.Range(editor.document.positionAt(commentStart), editor.document.positionAt(commentEnd)));
+            }
+            editor.setDecorations(decoration, ranges);
+            context.subscriptions.push(decoration);
         }
-        editor.setDecorations(decoration, ranges);
     };
     const trigger = () => {
         const editor = vscode.window.activeTextEditor;
