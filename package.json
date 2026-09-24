@@ -1,20 +1,36 @@
 {
   "name": "jsx-todo-comments",
   "displayName": "JSX TODO Comments",
-  "description": "Highlights TODO-like comments inside JSX blocks such as {/* TODO: ... */}",
-  "version": "0.0.1",
+  "description": "Highlights TODO, FIXME, BUG, HACK, and NOTE comments inside JSX and TSX blocks.",
+  "version": "0.0.2",
   "publisher": "MatiasAlejandroEscobar",
   "repository": {
     "type": "git",
     "url": "https://github.com/escobarmat/jsx-coments-todo"
+  },
+  "homepage": "https://github.com/escobarmat/jsx-coments-todo#readme",
+  "bugs": {
+    "url": "https://github.com/escobarmat/jsx-coments-todo/issues"
   },
   "license": "MIT",
   "engines": {
     "vscode": "^1.85.0"
   },
   "categories": [
-    "Other"
+    "Programming Languages"
   ],
+  "keywords": [
+    "jsx",
+    "tsx",
+    "react",
+    "comments",
+    "todo",
+    "better comments"
+  ],
+  "galleryBanner": {
+    "color": "#20252B",
+    "theme": "dark"
+  },
   "activationEvents": [
     "onLanguage:javascript",
     "onLanguage:javascriptreact",
@@ -26,15 +42,16 @@
     "configuration": {
       "title": "JSX TODO Comments",
       "properties": {
-        "jsxTodoComments.pattern": {
-          "type": "string",
-          "default": "TODO|FIXME|BUG|HACK",
-          "description": "Words to highlight inside JSX comments."
-        },
-        "jsxTodoComments.color": {
-          "type": "string",
-          "default": "#FF8C00",
-          "description": "Color used for matching TODO comments."
+        "jsxTodoComments.colors": {
+          "type": "object",
+          "default": {
+            "TODO": "#FFB000",
+            "FIXME": "#FF4D4F",
+            "BUG": "#FF2D2D",
+            "HACK": "#FFD93D",
+            "NOTE": "#4DA3FF"
+          },
+          "description": "Custom colors for supported JSX comment tags."
         }
       }
     }

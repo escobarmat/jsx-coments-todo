@@ -1,50 +1,68 @@
 # JSX TODO Comments
 
-A lightweight VS Code extension designed to highlight TODO-like comments inside JSX/TSX blocks such as:
+Colorize task and issue markers inside React JSX and TSX comments:
 
 ```tsx
-{/* TODO: formulario para crear un todo */}
+{/* TODO: add the create-todo form */}
 ```
 
-This is inspired by the idea behind Better Comments, but built for JSX/TSX and similar comment styles that Better Comments does not highlight automatically.
+This extension is inspired by [Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments), but is focused on JSX comment blocks such as `{/* ... */}`. It keeps the JSX braces untouched and highlights the comment delimiters and text.
 
 ## Features
 
-- Highlights TODO, FIXME, BUG, and HACK markers inside JSX comment blocks
-- Keeps the surrounding JSX braces `{}` untouched
-- Applies a bold orange color by default
-- Works in JavaScript and TypeScript files, including React JSX/TSX
+- Supports JavaScript, JSX, TypeScript, and TSX.
+- Highlights `TODO`, `FIXME`, `BUG`, `HACK`, and `NOTE`.
+- Uses a different default color for each marker.
+- Updates as you edit and switch between files.
+- Customizes colors through standard VS Code settings.
+- Does not alter your source code.
 
-## Example
+## Supported syntax
 
 ```tsx
-return (
-  <div>
-    {/* TODO: formulario para crear un todo */}
-    <h1>Rest Todos Page</h1>
-  </div>
-);
+export function TodoList() {
+  return (
+    <section>
+      {/* TODO: add filtering */}
+      {/* FIXME: handle an empty response */}
+      {/* BUG: this item can be duplicated */}
+      {/* HACK: temporary API fallback */}
+      {/* NOTE: revisit after the redesign */}
+    </section>
+  );
+}
 ```
+
+The extension colors `/* ... */` and its content, but leaves the JSX wrapper `{}` in the editor's normal syntax color.
 
 ## Configuration
 
-You can customize the pattern and color in your VS Code settings:
+Open VS Code settings JSON and customize any supported marker:
 
 ```json
-"jsxTodoComments.pattern": "TODO|FIXME|BUG|HACK",
-"jsxTodoComments.color": "#FF8C00"
+{
+  "jsxTodoComments.colors": {
+    "TODO": "#FFB000",
+    "FIXME": "#FF4D4F",
+    "BUG": "#FF2D2D",
+    "HACK": "#FFD93D",
+    "NOTE": "#4DA3FF"
+  }
+}
 ```
+
+Only the supported markers listed above are recognized. Colors accept any CSS color value supported by VS Code, such as hexadecimal values or named colors.
 
 ## Why this extension exists
 
-Better Comments is great for regular comments, but it does not treat JSX comments like `{/* ... */}` as standard language comments. This extension fills that gap for React and TypeScript/JavaScript projects that use JSX comments for TODO tracking.
+Regular JavaScript comments and JSX comments are represented differently by the editor's language grammar. As a result, comment-highlighting extensions built for `// ...` and `/* ... */` may not recognize the complete JSX form `{/* ... */}`. JSX TODO Comments adds that missing, focused behavior for React projects.
 
-## Support
+## Feedback and support
 
-If you enjoy this extension and want to support its development, you can donate here:
+Report bugs or request improvements in the [GitHub issue tracker](https://github.com/escobarmat/jsx-coments-todo/issues).
 
-https://buymeacoffee.com/escobarmatj
+If this extension helps your workflow, you can support its development at [Buy Me a Coffee](https://buymeacoffee.com/escobarmatj).
 
 ## License
 
-MIT
+[MIT](LICENSE)
