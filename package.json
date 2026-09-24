@@ -2,7 +2,7 @@
   "name": "jsx-todo-comments",
   "displayName": "JSX TODO Comments",
   "description": "Highlights TODO, FIXME, BUG, HACK, and NOTE comments inside JSX and TSX blocks.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "MatiasAlejandroEscobar",
   "icon": "assets/icon.png",
   "repository": {
