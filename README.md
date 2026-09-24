@@ -1,5 +1,7 @@
 # JSX TODO Comments
 
+![JSX TODO Comments icon](assets/icon.png)
+
 Colorize task and issue markers inside React JSX and TSX comments:
 
 ```tsx
