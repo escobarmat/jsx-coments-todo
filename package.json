@@ -1,0 +1,52 @@
+{
+  "name": "jsx-todo-comments",
+  "displayName": "JSX TODO Comments",
+  "description": "Highlights TODO-like comments inside JSX blocks such as {/* TODO: ... */}",
+  "version": "0.0.1",
+  "publisher": "escobarmatj",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/escobarmatj/jsx-todo-comments"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:javascript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescript",
+    "onLanguage:typescriptreact"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "JSX TODO Comments",
+      "properties": {
+        "jsxTodoComments.pattern": {
+          "type": "string",
+          "default": "TODO|FIXME|BUG|HACK",
+          "description": "Words to highlight inside JSX comments."
+        },
+        "jsxTodoComments.color": {
+          "type": "string",
+          "default": "#FF8C00",
+          "description": "Color used for matching TODO comments."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "vscode:prepublish": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.5"
+  }
+}
