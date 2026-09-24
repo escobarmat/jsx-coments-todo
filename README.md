@@ -19,6 +19,20 @@ This extension is inspired by [Better Comments](https://marketplace.visualstudio
 - Customizes colors through standard VS Code settings.
 - Does not alter your source code.
 
+### Default colors
+
+Each supported comment marker is highlighted with its own default color:
+
+| Marker | Default color | Meaning |
+| --- | --- | --- |
+| `TODO` | Orange `#FFB000` | Work that still needs to be done |
+| `FIXME` | Red `#FF4D4F` | Code that needs correction |
+| `BUG` | Bright red `#FF2D2D` | Known defect or broken behavior |
+| `HACK` | Yellow `#FFD93D` | Temporary workaround |
+| `NOTE` | Blue `#4DA3FF` | Important information or context |
+
+The colors change according to the marker found in the comment, so `TODO`, `BUG`, and the other supported tags are visually distinguishable at a glance.
+
 ## Supported syntax
 
 ```tsx
